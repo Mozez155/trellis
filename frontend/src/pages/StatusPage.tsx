@@ -134,7 +134,7 @@ export default function StatusPage() {
                 </div>
                 <div>
                   <p className="text-gray-400 dark:text-gray-400 light:text-gray-600 text-sm mb-1">Agreement ID</p>
-                  <ExplorerLink type="contract" value={agreement.agreement_id} full />
+                  <ExplorerLink type="agreement" value={agreement.agreement_id} full />
                 </div>
                 <div>
                   <p className="text-gray-400 dark:text-gray-400 light:text-gray-600 text-sm mb-1">Milestones</p>
