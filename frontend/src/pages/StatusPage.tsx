@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import type { Agreement, SorobanEvent } from '../lib/soroban';
 import { sorobanServer } from '../lib/soroban';
@@ -25,7 +25,7 @@ export default function StatusPage() {
   const [error, setError] = useState<string | null>(null);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
 
-  const handleQuery = async (id: string) => {
+  const handleQuery = useCallback(async (id: string) => {
     if (!id.trim()) {
       setError('Please enter an agreement ID');
       return;
@@ -54,7 +54,7 @@ export default function StatusPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [navigate]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,11 +62,11 @@ export default function StatusPage() {
   };
 
   useEffect(() => {
-    if (initialId && !agreement) {
+    if (initialId) {
       setAgreementId(initialId);
       handleQuery(initialId);
     }
-  }, []);
+  }, [initialId, handleQuery]);
 
   // Record successful agreement views in local history
   useEffect(() => {
